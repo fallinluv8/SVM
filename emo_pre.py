@@ -9,7 +9,7 @@ from sklearn.metrics import classification_report
 import numpy as np
 
 st.set_page_config(page_title="SVM Cảm Xúc", page_icon="💬")
-st.title("💬 Ứng dụng phân loại cảm xúc bình luận bằng SVM")
+st.title(" Ứng dụng phân loại cảm xúc bình luận bằng SVM")
 
 # ===================== BƯỚC 1: TIỀN XỬ LÝ ===================== #
 class TextCleaner(BaseEstimator, TransformerMixin):
@@ -69,7 +69,7 @@ df_report = pd.DataFrame(report).transpose()
 
 # ===================== BƯỚC 5: STREAMLIT UI ===================== #
 
-with st.expander("📋 Mô tả quy trình tiền xử lý"):
+with st.expander(" Mô tả quy trình tiền xử lý"):
     st.markdown("""
     **Dữ liệu được xử lý qua các bước sau:**
     - Chuyển văn bản thành chữ thường
@@ -78,23 +78,23 @@ with st.expander("📋 Mô tả quy trình tiền xử lý"):
     - Vector hóa bằng TF-IDF
     """)
 
-st.subheader("📊 Đánh giá mô hình trên tập kiểm tra:")
+st.subheader(" Đánh giá mô hình trên tập kiểm tra:")
 st.dataframe(df_report.style.highlight_max(axis=0))
 
-st.subheader("📝 Nhập bình luận để phân tích cảm xúc:")
+st.subheader(" Nhập bình luận để phân tích cảm xúc:")
 user_input = st.text_area("Ví dụ: Dịch vụ tệ quá, tôi không hài lòng chút nào...")
 
 if st.button("Dự đoán"):
     prediction = model.predict([user_input])[0]
     prob = model.predict_proba([user_input])[0]
     label = "Tích cực 😊" if prediction == 1 else "Tiêu cực 😞"
-    st.success(f"✅ Dự đoán: {label}")
-    st.write(f"🔢 Xác suất: {round(prob[prediction]*100, 2)}%")
+    st.success(f" Dự đoán: {label}")
+    st.write(f" Xác suất: {round(prob[prediction]*100, 2)}%")
 
     # ============ PHÂN TÍCH TỪ ẢNH HƯỞNG ============ #
     st.subheader("🔍 Giải thích lý do dự đoán")
 
-    st.write("🔠 **Top từ ảnh hưởng đến quyết định phân loại:**")
+    st.write(" **Top từ ảnh hưởng đến quyết định phân loại:**")
     vectorizer_fitted = model.named_steps['tfidf']
     classifier_fitted = model.named_steps['svc']
     feature_names = np.array(vectorizer_fitted.get_feature_names_out())
